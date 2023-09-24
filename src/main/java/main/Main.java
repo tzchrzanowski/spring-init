@@ -1,8 +1,11 @@
 package main;
 
 import config.ProjectConfig;
+import config.ProjectConfigEmpty;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.function.Supplier;
 
 @SpringBootApplication
 public class Main {
@@ -31,5 +34,18 @@ public class Main {
         Integer number = context.getBean("nineK", Integer.class);
         System.out.println(number);
 
+        /*
+        * Adding prgramatically instance of Cat to Empty Project Config context:
+        * */
+
+        var contextEmpty = new AnnotationConfigApplicationContext(ProjectConfigEmpty.class);
+        Cat cat1 = new Cat();
+        cat1.setName("Mimi");
+        Supplier<Cat> catSupplier = () -> cat1;
+
+        context.registerBean("mimiCat", Cat.class, catSupplier);
+
+        Cat mimi = context.getBean(Cat.class);
+        System.out.println(mimi.getName());
     }
 }
