@@ -13,13 +13,14 @@ import java.util.function.Supplier;
 public class Main {
     public static void main(String[] args) {
         /*
-        * Initialize spring context:
+        * Initialize spring contexts:
         * */
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
+        var contextEmpty = new AnnotationConfigApplicationContext(ProjectConfigEmpty.class);
 
-        parrotBeansAddedManually(context);
-        basicDataTypesBeansAddedManually(context);
-        catBeansAddedProgrammatically(context);
+//        parrotBeansAddedManually(context);
+//        basicDataTypesBeansAddedManually(context);
+//        catBeansAddedProgrammatically(contextEmpty);
 
     }
 
@@ -54,9 +55,9 @@ public class Main {
         cat1.setName("Mimi");
         Supplier<Cat> catSupplier = () -> cat1;
 
-        context.registerBean("mimiCat", Cat.class, catSupplier);
+        contextEmpty.registerBean("mimiCat", Cat.class, catSupplier);
 
-        Cat mimi = context.getBean(Cat.class);
+        Cat mimi = contextEmpty.getBean(Cat.class);
         System.out.println(mimi.getName());
     }
 
