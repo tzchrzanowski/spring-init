@@ -18,6 +18,7 @@ public class ComicBooksConfig {
     public ComicBookStore comicBookStoreBean() {
         ComicBookStore store = new ComicBookStore();
         store.setName("Awesome Comic Books");
+        store.setComicBook(comicBookBean());
         return store;
     }
 }

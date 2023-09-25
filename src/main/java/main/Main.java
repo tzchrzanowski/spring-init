@@ -2,6 +2,9 @@ package main;
 
 import animals.Cat;
 import animals.Parrot;
+import comicBooks.ComicBook;
+import comicBooks.ComicBookStore;
+import config.ComicBooksConfig;
 import config.ProjectConfig;
 import config.ProjectConfigEmpty;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,14 +16,19 @@ import java.util.function.Supplier;
 public class Main {
     public static void main(String[] args) {
         /*
-        * Initialize spring contexts:
-        * */
+         * Initialize spring contexts:
+         * */
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
         var contextEmpty = new AnnotationConfigApplicationContext(ProjectConfigEmpty.class);
+        var contextComicBooks = new AnnotationConfigApplicationContext(ComicBooksConfig.class);
 
-//        parrotBeansAddedManually(context);
-//        basicDataTypesBeansAddedManually(context);
-//        catBeansAddedProgrammatically(contextEmpty);
+        /*
+         * Context opetarions:
+         * */
+        // parrotBeansAddedManually(context);
+        // basicDataTypesBeansAddedManually(context);
+        // catBeansAddedProgrammatically(contextEmpty);
+        comicBookBeansOperations(contextComicBooks);
 
     }
 
@@ -61,4 +69,13 @@ public class Main {
         System.out.println(mimi.getName());
     }
 
+    /*
+    * Comic book store context, - Direct-wiring approach.
+    * Creating parent->child beans:
+    * */
+    static private void comicBookBeansOperations(AnnotationConfigApplicationContext context) {
+        ComicBookStore storeBean = context.getBean(ComicBookStore.class);
+        System.out.println(storeBean);
+        System.out.println(storeBean.getComicBook());
+    }
 }

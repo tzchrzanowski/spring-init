@@ -19,4 +19,12 @@ public class ComicBookStore {
     public String toString() {
         return "Comic Book Store : " + this.name;
     }
+
+    public void setComicBook(ComicBook book) {
+        this.comicBook = book;
+    }
+
+    public ComicBook getComicBook() {
+        return this.comicBook;
+    }
 }
