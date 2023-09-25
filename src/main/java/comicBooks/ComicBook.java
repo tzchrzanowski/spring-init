@@ -1,9 +1,9 @@
-package main;
+package comicBooks;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class Parrot {
+public class ComicBook {
     private String name;
 
     public String getName(){
@@ -12,5 +12,10 @@ public class Parrot {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Comic Book : " + this.name;
     }
 }
