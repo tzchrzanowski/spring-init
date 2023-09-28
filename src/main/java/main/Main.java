@@ -2,11 +2,9 @@ package main;
 
 import animals.Cat;
 import animals.Parrot;
+import comicBooks.AutowiredComicBookStore;
 import comicBooks.ComicBookStore;
-import config.ComicBooksConfig;
-import config.ComicBooksConfigWIredParent;
-import config.ProjectConfig;
-import config.ProjectConfigEmpty;
+import config.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -22,6 +20,7 @@ public class Main {
         var contextEmpty = new AnnotationConfigApplicationContext(ProjectConfigEmpty.class);
         var contextComicBooks = new AnnotationConfigApplicationContext(ComicBooksConfig.class);
         var contextComicBooksWithInventory = new AnnotationConfigApplicationContext(ComicBooksConfigWIredParent.class);
+        var contextWithAutowiredBooks = new  AnnotationConfigApplicationContext(ConfigStoreWithAutowiredBooks.class);
 
         /*
          * Context opetarions:
@@ -29,8 +28,10 @@ public class Main {
         // parrotBeansAddedManually(context);
         // basicDataTypesBeansAddedManually(context);
         // catBeansAddedProgrammatically(contextEmpty);
-        comicBookBeansOperations(contextComicBooks);
-        comicBookBeansOperations(contextComicBooksWithInventory);
+        // comicBookBeansOperations(contextComicBooks);
+        // comicBookBeansOperations(contextComicBooksWithInventory);
+        autowiredComicBookBeansOperations(contextWithAutowiredBooks);
+
     }
 
     /*
@@ -81,4 +82,14 @@ public class Main {
         System.out.println(storeBean.getComicBook());
     }
 
+    /*
+    * Get autowired comic book class:
+    * */
+    static private void autowiredComicBookBeansOperations(AnnotationConfigApplicationContext context) {
+        AutowiredComicBookStore storeBean = context.getBean(AutowiredComicBookStore.class);
+        storeBean.setName("Autowired store");
+        storeBean.getComicBook().setName("Autowired comic book vol.3");
+        System.out.println(storeBean);
+        System.out.println(storeBean.getComicBook());
+    }
 }
