@@ -2,9 +2,9 @@ package main;
 
 import animals.Cat;
 import animals.Parrot;
-import comicBooks.ComicBook;
 import comicBooks.ComicBookStore;
 import config.ComicBooksConfig;
+import config.ComicBooksConfigWIredParent;
 import config.ProjectConfig;
 import config.ProjectConfigEmpty;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +21,7 @@ public class Main {
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
         var contextEmpty = new AnnotationConfigApplicationContext(ProjectConfigEmpty.class);
         var contextComicBooks = new AnnotationConfigApplicationContext(ComicBooksConfig.class);
+        var contextComicBooksWithInventory = new AnnotationConfigApplicationContext(ComicBooksConfigWIredParent.class);
 
         /*
          * Context opetarions:
@@ -29,7 +30,7 @@ public class Main {
         // basicDataTypesBeansAddedManually(context);
         // catBeansAddedProgrammatically(contextEmpty);
         comicBookBeansOperations(contextComicBooks);
-
+        comicBookBeansOperations(contextComicBooksWithInventory);
     }
 
     /*
@@ -72,10 +73,12 @@ public class Main {
     /*
     * Comic book store context, - Direct-wiring approach.
     * Creating parent->child beans:
+    * Method can be used for contextComicBooksWithInventory and contextComicBooks.
     * */
     static private void comicBookBeansOperations(AnnotationConfigApplicationContext context) {
         ComicBookStore storeBean = context.getBean(ComicBookStore.class);
         System.out.println(storeBean);
         System.out.println(storeBean.getComicBook());
     }
+
 }
