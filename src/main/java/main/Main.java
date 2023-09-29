@@ -4,6 +4,7 @@ import animals.Cat;
 import animals.Parrot;
 import comicBooks.AutowiredComicBookStore;
 import comicBooks.ComicBookStore;
+import comicBooks.ConstructorAutowiredComicBookStore;
 import config.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,7 +31,9 @@ public class Main {
         // catBeansAddedProgrammatically(contextEmpty);
         // comicBookBeansOperations(contextComicBooks);
         // comicBookBeansOperations(contextComicBooksWithInventory);
-        autowiredComicBookBeansOperations(contextWithAutowiredBooks);
+        // autowiredComicBookBeansOperations(contextWithAutowiredBooks);
+        constructorAutowiredComicBookBeansOperations(contextWithAutowiredBooks);
+
 
     }
 
@@ -89,6 +92,17 @@ public class Main {
         AutowiredComicBookStore storeBean = context.getBean(AutowiredComicBookStore.class);
         storeBean.setName("Autowired store");
         storeBean.getComicBook().setName("Autowired comic book vol.3");
+        System.out.println(storeBean);
+        System.out.println(storeBean.getComicBook());
+    }
+
+    /*
+     * Get constructor-autowired comic book class:
+     * */
+    static private void constructorAutowiredComicBookBeansOperations(AnnotationConfigApplicationContext context) {
+        ConstructorAutowiredComicBookStore storeBean = context.getBean(ConstructorAutowiredComicBookStore.class);
+        storeBean.setName("Constructor Autowired store");
+        storeBean.getComicBook().setName("Constructor Autowired comic book vol.4");
         System.out.println(storeBean);
         System.out.println(storeBean.getComicBook());
     }
